@@ -1,0 +1,15 @@
+/Users/zakerden1234/Desktop/T9/T9A/T9A/bin/Debug/net7.0/T9A
+/Users/zakerden1234/Desktop/T9/T9A/T9A/bin/Debug/net7.0/T9A.deps.json
+/Users/zakerden1234/Desktop/T9/T9A/T9A/bin/Debug/net7.0/T9A.runtimeconfig.json
+/Users/zakerden1234/Desktop/T9/T9A/T9A/bin/Debug/net7.0/T9A.dll
+/Users/zakerden1234/Desktop/T9/T9A/T9A/bin/Debug/net7.0/T9A.pdb
+/Users/zakerden1234/Desktop/T9/T9A/T9A/obj/Debug/net7.0/T9A.csproj.AssemblyReference.cache
+/Users/zakerden1234/Desktop/T9/T9A/T9A/obj/Debug/net7.0/T9A.GeneratedMSBuildEditorConfig.editorconfig
+/Users/zakerden1234/Desktop/T9/T9A/T9A/obj/Debug/net7.0/T9A.AssemblyInfoInputs.cache
+/Users/zakerden1234/Desktop/T9/T9A/T9A/obj/Debug/net7.0/T9A.AssemblyInfo.cs
+/Users/zakerden1234/Desktop/T9/T9A/T9A/obj/Debug/net7.0/T9A.csproj.CoreCompileInputs.cache
+/Users/zakerden1234/Desktop/T9/T9A/T9A/obj/Debug/net7.0/T9A.dll
+/Users/zakerden1234/Desktop/T9/T9A/T9A/obj/Debug/net7.0/refint/T9A.dll
+/Users/zakerden1234/Desktop/T9/T9A/T9A/obj/Debug/net7.0/T9A.pdb
+/Users/zakerden1234/Desktop/T9/T9A/T9A/obj/Debug/net7.0/T9A.genruntimeconfig.cache
+/Users/zakerden1234/Desktop/T9/T9A/T9A/obj/Debug/net7.0/ref/T9A.dll

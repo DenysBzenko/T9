@@ -7,7 +7,7 @@ class Program
     private static void Main()
     {
         // Зчитуємо вміст файлу зі словами
-        string[] words = File.ReadAllLines("C:\\Users\\User\\T9\\T9A\\T9A\\words_list.txt");
+        string[] words = File.ReadAllLines("/Users/zakerden1234/Desktop/T9/T9A/T9A/words_list.txt");
 
         // Перетворюємо масив слів у список для зручності перевірки
         List<string> wordList = new List<string>(words);
@@ -42,77 +42,60 @@ class Program
             Console.WriteLine("All words are correct!");
         }
     }
+    // Отримання списку п'яти найближчих запропонованих слів до заданого слова
+    
+    
     private static List<string> GetFiveOfferedWords(string wrongWord, List<string> glossary)
     {
-        Dictionary<string, int> wordsAndValues = new Dictionary<string, int>();
+        var suggestedWords = new List<string>();
+        int minDistance = int.MaxValue;
         foreach (var correctWord in glossary)
         {
-            bool needToBeAdded = DoesWordNeedToBeAdded(wordsAndValues, wrongWord, correctWord);
-            if (needToBeAdded)
+            int distance = LevenshteinDistance(wrongWord, correctWord);
+            if (distance < minDistance)
             {
-                wordsAndValues[correctWord] = FindLCS(wrongWord, correctWord);
+                suggestedWords.Clear();
+                suggestedWords.Add(correctWord);
+                minDistance = distance;
+            }
+            else if (distance == minDistance)
+            {
+                suggestedWords.Add(correctWord);
             }
         }
 
-        // Сортуємо слова за значенням і повертаємо перші п'ять
-        var sortedWords = wordsAndValues.OrderBy(x => x.Value).Select(x => x.Key).ToList();
+        // Виводимо підказки тільки для найближчих слів
+        var sortedWords = suggestedWords.OrderBy(w => w);
         return sortedWords.Take(5).ToList();
     }
-
-
-    private static bool DoesWordNeedToBeAdded(Dictionary<string, int> wordsAndValues, string wrongWord,
-        string correctWord)
+    // Обчислити відстань Левенштейна між двома рядками
+    
+    
+    private static int LevenshteinDistance(string s1, string s2)
     {
-        string minValueOfKey = null;
-        int lcsOfTheOfferedWord = FindLCS(wrongWord, correctWord);
-        if (wordsAndValues.Keys.Count < 5)
+        int[,] distances = new int[s1.Length + 1, s2.Length + 1];
+
+        for (int i = 0; i <= s1.Length; i++)
         {
-            return true;
+            distances[i, 0] = i;
         }
 
-        foreach (var key in wordsAndValues.Keys)
+        for (int j = 0; j <= s2.Length; j++)
         {
-            if (minValueOfKey == null || wordsAndValues[key] < wordsAndValues[minValueOfKey])
+            distances[0, j] = j;
+        }
+
+        for (int i = 1; i <= s1.Length; i++)
+        {
+            for (int j = 1; j <= s2.Length; j++)
             {
-                minValueOfKey = key;
+                int cost = s1[i - 1] == s2[j - 1] ? 0 : 1;
+                distances[i, j] = Math.Min(
+                    Math.Min(distances[i - 1, j] + 1, distances[i, j - 1] + 1),
+                    distances[i - 1, j - 1] + cost);
             }
         }
 
-        if (minValueOfKey != null && wordsAndValues[minValueOfKey] < lcsOfTheOfferedWord)
-        {
-            wordsAndValues.Remove(minValueOfKey);
-            return true;
-        }
-
-        return false;
-    }
-
-
-
-    public static int FindLCS(string misstipedWord, string offeredWord)
-    {
-
-        int mistypedLen = misstipedWord.Length;
-        int offeredLen = offeredWord.Length;
-        int[,] tableLCS = new int[mistypedLen + 1, offeredLen + 1];
-
-
-
-        for (int m = 1; m <= mistypedLen; m++)
-        {
-            for (int o = 1; o <= offeredLen; o++)
-            {
-                if (misstipedWord[m - 1] == offeredWord[o - 1])
-                {
-                    tableLCS[m, o] = tableLCS[m - 1, o - 1] + 1;
-                }
-                else
-                {
-                    tableLCS[m, o] = Math.Max(tableLCS[m - 1, o], tableLCS[m, o - 1]);
-                }
-            }
-        }
-
-        return tableLCS[mistypedLen, offeredLen];
+        return distances[s1.Length, s2.Length];
     }
 }
